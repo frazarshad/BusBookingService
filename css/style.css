@@ -551,7 +551,13 @@ figure {
     width: 40%;
   }
 }
-.tabulation input[type="text"] {
+.tabulation input[type="text"],
+.tabulation input[type="password"],
+.tabulation input[type="email"],
+.tabulation input[type="tel"],
+.tabulation input[type="time"],
+.tabulation input[type="date"]
+{
   background: rgba(0, 0, 0, 0.05);
   border: none;
   box-shadow: none;
@@ -564,6 +570,22 @@ figure {
   border-radius: 0;
   color: #F78536 !important;
 }
+
+.orange-text {
+  color: #F78536 !important;
+  font-weight: bold;
+}
+
+.gray-text {
+  color: rgb(146, 146, 146) !important;
+  font-weight: bold;
+}
+
+.gray-hover:hover {
+  background-color: #dadada;
+  transition-duration: 300ms;
+}
+
 .tabulation input[type="text"]::-webkit-input-placeholder {
   /* Chrome/Opera/Safari */
   color: #F78536 !important;
