@@ -60,12 +60,12 @@ def signup():
 
 @app.route('/login', methods=['POST'])
 def login_post():
-    email = request.form.get('email')
+    username = request.form.get('username')
     password = request.form.get('password')
 
-    user = User.query.filter_by(email=email).first()
+    user = User.query.filter_by(username=username).first()
 
-    if user:
+    if not user:
         flash('Incorrect user or password')
         return redirect(url_for('signup'))
 
