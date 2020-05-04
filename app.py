@@ -21,7 +21,7 @@ def home():
     return render_template('signup.html')
 
 
-@app.route('/book')
+@app.route('/book.html')
 def book():
     return render_template('book.html')
 
@@ -47,7 +47,7 @@ def signup():
         contact = request.form.get('phone')
 
         user = User.query.filter_by(username=username).all()
-        print(user)
+
         if user:
             return render_template('signup.html', error="Username in use")
 
@@ -56,6 +56,7 @@ def signup():
         db.session.commit()
 
     return render_template('signup.html')
+
 
 @app.route('/login', methods=['POST'])
 def login_post():
