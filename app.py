@@ -65,7 +65,7 @@ def login_post():
 
     user = User.query.filter_by(username=username).first()
 
-    if not user:
+    if not user or user.password != password:
         flash('Incorrect user or password')
         return redirect(url_for('signup'))
 
