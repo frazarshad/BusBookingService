@@ -25,6 +25,18 @@ def home():
 def book():
     return render_template('book.html')
 
+@app.route('/current.html')
+def current():
+    return render_template('current.html')
+
+@app.route('/history.html')
+def history():
+    return render_template('history.html')
+
+@app.route('/book#')
+def travel():
+    return render_template('signup.html')
+
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
