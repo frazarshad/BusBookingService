@@ -41,34 +41,34 @@
 	<meta name="twitter:card" content="" />
 
 	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-	<link rel="shortcut icon" href="favicon.ico">
+	<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico')}}">
 
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
 
 	<!-- Animate.css -->
-	<link rel="stylesheet" href="css/animate.css">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/animate.css')}}">
 	<!-- Icomoon Icon Fonts-->
-	<link rel="stylesheet" href="css/icomoon.css">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/icomoon.css')}}">
 	<!-- Bootstrap  -->
-	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css')}}">
 	<!-- Superfish -->
-	<link rel="stylesheet" href="css/superfish.css">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/superfish.css')}}">
 	<!-- Magnific Popup -->
-	<link rel="stylesheet" href="css/magnific-popup.css">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/magnific-popup.css')}}">
 	<!-- Date Picker -->
-	<link rel="stylesheet" href="css/bootstrap-datepicker.min.css">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-datepicker.min.css')}}">
 	<!-- CS Select -->
-	<link rel="stylesheet" href="css/cs-select.css">
-	<link rel="stylesheet" href="css/cs-skin-border.css">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/cs-select.css')}}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/cs-skin-border.css')}}">
 
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
 
 
 	<!-- Modernizr JS -->
-	<script src="js/modernizr-2.6.2.min.js"></script>
+	<script src="href="{{ url_for('static', filename='js/modernizr-2.6.2.min.js')}}"></script>
 	<!-- FOR IE9 below -->
 	<!--[if lt IE 9]>
-	<script src="js/respond.min.js"></script>
+	<script src="href="{{ url_for('static', filename='js/respond.min.js')}}"></script>
 	<![endif]-->
 
 </head>
@@ -132,6 +132,7 @@
 											<div role="tabpanel" class="tab-pane active" id="login">
 												<div class="row">
 													<div class="col-12 mt">
+													<form method="POST" action="/login">
 														<div class="input-field">
 															<label for="from">Username:</label>
 															<input type="text" class="form-control" id="username"
@@ -149,12 +150,14 @@
 														<input type="submit" class="btn btn-primary btn-block"
 															value="Login">
 													</div>
+													</form>
 												</div>
 											</div>
 
 											<div role="tabpanel" class="tab-pane" id="signup">
 												<div class="row">
 													<div class="col-12 mt">
+													<form method="POST" action="/signup">
 														<div class="input-field">
 															<label for="from">Username:</label>
 															<input type="text" class="form-control" id="username"
@@ -186,6 +189,7 @@
 														<input type="submit" class="btn btn-primary btn-block"
 															value="Sign Up">
 													</div>
+													</form>
 												</div>
 											</div>
 										</div>
@@ -195,6 +199,7 @@
 									<h2>The Most Luxurious Buses</h2>
 									<h3>Travel all around Lahore</h3>
 									<span class="price">Starting at Rs. 20</span>
+									 <h1> only 5000 for people like bithu<h1>
 								</div>
 							</div>
 						</div>
@@ -289,31 +294,31 @@
 	<!-- jQuery -->
 
 
-	<script src="js/jquery.min.js"></script>
+	<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
 	<!-- jQuery Easing -->
-	<script src="js/jquery.easing.1.3.js"></script>
+	<script src="{{ url_for('static', filename='js/jquery.easing.1.3.js')}}"></script>
 	<!-- Bootstrap -->
-	<script src="js/bootstrap.min.js"></script>
+	<script src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
 	<!-- Waypoints -->
-	<script src="js/jquery.waypoints.min.js"></script>
-	<script src="js/sticky.js"></script>
+	<script src="{{ url_for('static', filename='js/jquery.waypoints.min.js')}}"></script>
+	<script src="{{ url_for('static', filename='js/sticky.js')}}"></script>
 
 	<!-- Stellar -->
-	<script src="js/jquery.stellar.min.js"></script>
+	<script src="{{ url_for('static', filename='js/jquery.stellar.min.js')}}"></script>
 	<!-- Superfish -->
-	<script src="js/hoverIntent.js"></script>
-	<script src="js/superfish.js"></script>
+	<script src="{{ url_for('static', filename='js/hoverIntent.js')}}"></script>
+	<script src="{{ url_for('static', filename='js/superfish.js')}}"></script>
 	<!-- Magnific Popup -->
-	<script src="js/jquery.magnific-popup.min.js"></script>
-	<script src="js/magnific-popup-options.js"></script>
+	<script src="{{ url_for('static', filename='js/jquery.magnific-popup.min.js')}}"></script>
+	<script src="{{ url_for('static', filename='js/magnific-popup-options.js')}}"></script>
 	<!-- Date Picker -->
-	<script src="js/bootstrap-datepicker.min.js"></script>
+	<script src="{{ url_for('static', filename='js/bootstrap-datepicker.min.js')}}"></script>
 	<!-- CS Select -->
-	<script src="js/classie.js"></script>
-	<script src="js/selectFx.js"></script>
+	<script src="{{ url_for('static', filename='js/classie.js')}}"></script>
+	<script src="{{ url_for('static', filename='js/selectFx.js')}}"></script>
 
 	<!-- Main JS -->
-	<script src="js/main.js"></script>
+	<script src="{{ url_for('static', filename='js/main.js')}}"></script>
 
 </body>
 
