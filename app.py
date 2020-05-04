@@ -46,10 +46,10 @@ def signup():
         email = request.form.get('email')
         contact = request.form.get('phone')
 
-        user = User.query.filter_by(email=email).first()
+        user = User.query.filter_by(username=username).all()
+        print(user)
         if user:
-            flash('Email address already exists')
-            return render_template('signup.html')
+            return render_template('signup.html', error="Username in use")
 
         entry = User(username=username, password=password, email=email, contact=contact)
         db.session.add(entry)
