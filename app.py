@@ -21,7 +21,12 @@ def home():
     return render_template('signup.html')
 
 
-@app.route('/signup', methods=['GETS', 'POST'])
+@app.route('/book')
+def book():
+    return render_template('book.html')
+
+
+@app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
         username = request.form.get('username')
@@ -47,11 +52,11 @@ def login_post():
 
     user = User.query.filter_by(email=email).first()
 
+    if user:
+        flash('Incorrect user or password')
+        return redirect(url_for('signup'))
 
-    flash('Incorrect user or password')
-    return redirect(url_for('signup.html'))
-
-    return redirect(url_for('book.html'))
+    return redirect(url_for('book'))
 
 if __name__ == '__main__':
     app.run()
