@@ -85,9 +85,9 @@
 						<!-- START #fh5co-menu-wrap -->
 						<nav id="fh5co-menu-wrap" role="navigation">
 							<ul class="sf-menu" id="fh5co-primary-menu">
-								<li class="active"><a href="book.html">Book Ride</a></li>
-								<li><a href="current.html">Current Rides</a></li>
-								<li><a href="history.html">History</a></li>
+								<li class="active"><a href="{{ url_for('book') }}">Book Ride</a></li>
+								<li><a href="{{ url_for('current') }}">Current Rides</a></li>
+								<li><a href="{{ url_for('history') }}">History</a></li>
 								<li><a href="{{ url_for('signup') }}">Logout</a></li>
 								
 							</ul>
