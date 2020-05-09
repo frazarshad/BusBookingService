@@ -4,17 +4,11 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'bithu'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://lR28u35RXd:SUS2Z5R7kC@remotemysql.com/lR28u35RXd'
 db = SQLAlchemy(app)
 
-class User(db.Model):
-    user_id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), unique=True, nullable=False)
-    password = db.Column(db.String(20), unique=False, nullable=False)
-    email = db.Column(db.String(20), unique=True, nullable=False)
-    contact = db.Column(db.Integer, unique=False, nullable=False)
-
-
+from models import User
 
 @app.route('/')
 def home():
