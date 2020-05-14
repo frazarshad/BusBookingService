@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect, request, flash
+from flask import Flask, render_template, url_for, redirect, request, session, g
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -12,24 +12,46 @@ from models import User
 
 @app.route('/')
 def home():
+    if g.user:
+        return redirect(url_for('book'))
     return render_template('signup.html')
+
 
 
 @app.route('/book.html')
 def book():
-    return render_template('book.html')
+    if g.user:
+        return render_template('book.html')
+
+    return redirect(url_for('login_post'))
+
 
 @app.route('/current.html')
 def current():
-    return render_template('current.html')
+    if g.user:
+        return render_template('current.html')
+
+    return redirect(url_for('login_post'))
+
 
 @app.route('/history.html')
 def history():
-    return render_template('history.html')
+    if g.user:
+        return render_template('history.html')
+
+    return redirect(url_for('login_post'))
+
 
 @app.route('/book#')
 def travel():
     return render_template('signup.html')
+
+@app.route('/logout.html')
+def logout():
+    session.pop('userName', None)
+    g.user=None
+    return redirect(url_for('home'))
+
 
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -51,18 +73,32 @@ def signup():
 
     return render_template('signup.html')
 
+@app.before_request
+def before_request():
+  g.user = None
+  if 'userName' in session:
+      g.user = session['userName']
 
-@app.route('/login', methods=['POST'])
+
+@app.route('/login', methods=['GET', 'POST'])
 def login_post():
-    username = request.form.get('username')
-    password = request.form.get('password')
 
-    user = User.query.filter_by(username=username).first()
 
-    if not user or user.password != password:
-        return redirect(url_for('signup', error="Username or password incorrect"))
+    if request.method == 'POST':
+        session.pop('userName', None)
 
-    return redirect(url_for('book'))
+        username = request.form.get('username')
+        password = request.form.get('password')
+        user = User.query.filter_by(username=username, password=password).first()
+
+        if not user or user.password != password:
+            return render_template('signup.html', error="Username or password incorrect")
+        session['userName'] = request.form['username']
+        return redirect(url_for('book'))
+    return render_template('signup.html')
+
+
+
 
 if __name__ == '__main__':
     app.run()
