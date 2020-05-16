@@ -1,4 +1,4 @@
-from app import db
+from app import db,render_template
 
 class User(db.Model):
     __tablename__ = 'user'
@@ -10,6 +10,7 @@ class User(db.Model):
     city = db.Column(db.String(20), unique=False, nullable=False, default='Lahore')
     address = db.Column(db.String(50), unique=False, nullable=True)
     current_ride = db.Column(db.Integer, db.ForeignKey('running_rides.id'), unique=False, nullable=True)
+
 
 
 class Route(db.Model):

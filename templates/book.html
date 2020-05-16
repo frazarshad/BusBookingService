@@ -7,7 +7,7 @@
 					style="background-image: url(images/cover_bg_5.jpg);">
 					<div class="desc">
 						<div class="container">
-							<div class="row">
+							<form class="row" action="{{ url_for('bookie') }}" method="POST">
 								<div class="col-sm-5 col-md-5 col-12 col-sm-6">
 									<!-- <a href="index.html" id="main-logo">Travel</a> -->
 									<div class="tabulation animate-box">
@@ -21,19 +21,23 @@
 										</ul>
 
 										<!-- Tab panes -->
+
 										<div class="tab-content">
+
 											<div role="tabpanel" class="tab-pane active" id="book">
 												<div class="row">
 													<div class="col-12 mt">
+
 														<section>
 															<label for="class">Route:</label>
-															<select class="cs-select cs-skin-border">
-																<option value="" disabled selected>1</option>
-																<option value="1">1</option>
-																<option value="2">2</option>
-																<option value="3">3</option>
-																<option value="4">4</option>
+
+															<select class="cs-select cs-skin-border"  name="route">
+																<option value="" disabled selected>azadi chowk to ichra</option>
+																{% for i in rt %}
+                                                                <option >{{ i }}</option>
+                                                                {% endfor %} }
 															</select>
+
 														</section>
 													</div>
 													<div class="col-6 mt alternate">
@@ -58,7 +62,7 @@
 															</select>
 														</section>
 													</div>
-													
+
 													<div class="col-12">
 														<input type="submit" class="btn btn-primary btn-block"
 															value="Book Ride">
@@ -66,12 +70,15 @@
 												</div>
 											</div>	
 										</div>
+
 									</div>
+
 								</div>
+
 								<div class="desc2 animate-box col-12 col-sm-6">
 										<h2>Book Your Next Ride Now</h2>
 								</div>
-							</div>
+                            </form></div>
 						</div>
 					</div>
 				</div>
