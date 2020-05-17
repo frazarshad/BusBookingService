@@ -12,29 +12,24 @@
 							<div class="row">
 								<div class="col-12" style="margin-left: auto; margin-right: auto;">
 									<!-- <a href="index.html" id="main-logo">Travel</a> -->
+
 									<div class="tabulation container animate-box">
+                                        {% for i,j in data %}
 										<div class="row p-3 gray-hover">
-											<h5 class="orange-text my-auto col-12 col-sm-6 ">Route 1</h5>
+											<h5 class="orange-text my-auto col-12 col-sm-6 ">{{ i.route }}</h5>
 											<div class="text-center col-6 col-sm-3">
-												<div class="gray-text">23rd May, 2020</div>
-												<div class="gray-text">4:32 pm</div>
-											</div>
-											<div class="row my-auto col-6 col-sm-3">
-												<div class="gray-text">Arriving in:</div>
-												<div class="gray-text">10 minutes</div>
-											</div>
-										</div>
-										<div class="row p-3 gray-hover">
-											<h5 class="orange-text my-auto col-12 col-sm-6 ">Route 2</h5>
-											<div class="text-center col-6 col-sm-3">
-												<div class="gray-text">23rd May, 2020</div>
-												<div class="gray-text">4:32 pm</div>
+                                                <div class="gray-text">{{ i.date }}</div>
 											</div>
 											<div class="row my-auto col-6 col-sm-3">
 												<div class="gray-text">Arriving in: </div>
-												<div class="gray-text"> 3 minutes</div>
+												<div class="gray-text">{{ j//60 }} minutes</div>
+                                            <form class="row" action="{{ url_for('cancel', val=i.id) }}" method="POST" id="cancel">
+                                                <input  value="cancel " type="submit" class="btn btn-primary btn-block" > </form>
+
 											</div>
+
 										</div>
+                                        {% endfor %}
 									</div>
 								</div>
 							</div>

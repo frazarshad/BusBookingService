@@ -1,88 +1,89 @@
 {% extends "layout.html" %}
 
 {% block body %}
-			<div class="fh5co-hero">
-				<div class="fh5co-overlay"></div>
-				<div class="fh5co-cover" data-stellar-background-ratio="0.5"
-					style="background-image: url(images/cover_bg_5.jpg);">
-					<div class="desc">
-						<div class="container">
-							<form class="row" action="{{ url_for('bookie') }}" method="POST">
-								<div class="col-sm-5 col-md-5 col-12 col-sm-6">
-									<!-- <a href="index.html" id="main-logo">Travel</a> -->
-									<div class="tabulation animate-box">
+<div class="fh5co-hero">
+	<div class="fh5co-overlay"></div>
+	<div class="fh5co-cover" data-stellar-background-ratio="0.5" style="background-image: url(images/cover_bg_5.jpg);">
+		<div class="desc">
+			<div class="container">
+				<form class="row" action="{{ url_for('book') }}" method="POST" id="book-form">
+					<div class="col-sm-5 col-md-5 col-12 col-sm-6">
+						<!-- <a href="index.html" id="main-logo">Travel</a> -->
+						<div class="tabulation animate-box">
 
-										<!-- Nav tabs -->
-										<ul class="nav nav-tabs" role="tablist">
-											<li	 role="presentation" class="active" style="margin-top: 0.8rem">
-												<a href="#book" role="tab"
-													data-toggle="tab">Book a Ride</a>
-											</li>
-										</ul>
+							<!-- Nav tabs -->
+							<ul class="nav nav-tabs" role="tablist">
+								<li role="presentation" class="active" style="margin-top: 0.8rem">
+									<a href="#book" role="tab" data-toggle="tab">Book a Ride</a>
+								</li>
+							</ul>
+                            	{% if error %}
+										<div class="alert alert-danger" role="alert">
+											<strong>{{error}}</strong>
+										</div>
+										{% endif %}
+							<!-- Tab panes -->
 
-										<!-- Tab panes -->
+							<div class="tab-content">
 
-										<div class="tab-content">
+								<div role="tabpanel" class="tab-pane active" id="book">
+									<div class="row">
+										<div class="col-12 mt">
 
-											<div role="tabpanel" class="tab-pane active" id="book">
-												<div class="row">
-													<div class="col-12 mt">
+											<section>
+												<label for="class">Route:</label>
 
-														<section>
-															<label for="class">Route:</label>
+												<select class="cs-select cs-skin-border" id="route" name="route" form="book-form">
 
-															<select class="cs-select cs-skin-border"  name="route">
-																<option value="" disabled selected>azadi chowk to ichra</option>
-																{% for i in rt %}
-                                                                <option >{{ i }}</option>
-                                                                {% endfor %} }
-															</select>
+													{% for i in rt %}
+													<option>{{ i }}</option>
+													{% endfor %} }
+												</select>
 
-														</section>
-													</div>
-													<div class="col-6 mt alternate">
-														<div class="input-field">
-															<label for="date-start">Date:</label>
-															<input type="date" class="form-control" id="date" />
-														</div>
-													</div>
-													<div class="col-6 mt alternate">
-														<div class="input-field">
-															<label for="date-end">Time:</label>
-															<input type="time" class="form-control" id="time" />
-														</div>
-													</div>
-													<div class="col-sm-12 mt">
-														<section>
-															<label for="class">Class:</label>
-															<select class="cs-select cs-skin-border">
-																<option value="" disabled selected>Basic</option>
-																<option value="basic">Basic</option>
-																<option value="first">First Class</option>
-															</select>
-														</section>
-													</div>
-
-													<div class="col-12">
-														<input type="submit" class="btn btn-primary btn-block"
-															value="Book Ride">
-													</div>
-												</div>
-											</div>	
+											</section>
+										</div>
+										<div class="col-6 mt alternate">
+											<div class="input-field">
+												<label for="date-start">Date:</label>
+												<input type="date" class="form-control" id="date" name="date" />
+											</div>
+										</div>
+										<div class="col-6 mt alternate">
+											<div class="input-field">
+												<label for="date-end">Time:</label>
+												<input type="time" class="form-control" id="time" name="time" />
+											</div>
+										</div>
+										<div class="col-sm-12 mt">
+											<section>
+												<label for="class">Class:</label>
+												<select class="cs-select cs-skin-border" id="class_" name="class" form="book-form">
+													<option value="Basic" selected>Basic</option>
+													<option value="First">First Class</option>
+												</select>
+											</section>
 										</div>
 
+										<div class="col-12">
+											<input type="submit" class="btn btn-primary btn-block" value="Book Ride">
+										</div>
 									</div>
-
 								</div>
+							</div>
 
-								<div class="desc2 animate-box col-12 col-sm-6">
-										<h2>Book Your Next Ride Now</h2>
-								</div>
-                            </form></div>
 						</div>
+
 					</div>
-				</div>
 
+					<div class="desc2 animate-box col-12 col-sm-6">
+						<h2>Book Your Next Ride Now</h2>
+					</div>
+				</form>
 			</div>
+		</div>
+	</div>
+</div>
 
-	{% endblock %}
+</div>
+
+{% endblock %}

@@ -1,5 +1,8 @@
 from flask import Flask, render_template, url_for, redirect, request, session, g
 from flask_sqlalchemy import SQLAlchemy
+import random
+from datetime import date, time, datetime
+
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
@@ -8,7 +11,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://lR28u35RXd:SUS2Z5R7kC@remotemysql.com/lR28u35RXd'
 db = SQLAlchemy(app)
 
-from models import User,Route
+from models import User, Route, Booking, Invoice
 
 @app.route('/')
 def home():
@@ -18,38 +21,101 @@ def home():
 
 
 
-@app.route('/book')
+@app.route('/book',methods=['POST','GET'])
 def book():
     if g.user:
+        if request.method == 'POST':
+            rt = []
+            routes = Route.query.all()
+            for route in routes:
+                rt.append(route.route_path)  # to display routes
+
+            selectdata = request.form.get('route')  # get data from form
+            selectdate = request.form.get('date')
+            selecttime = request.form.get('time')
+            if selectdate == "" or selecttime == "":
+                return render_template('book.html', rt=rt, error='Date and Time cannot be left empty')
+
+            ctime = date.today()
+            convertdate= datetime.strptime(selectdate, '%Y-%m-%d').date()
+
+            if convertdate< ctime:
+                return render_template('book.html', rt=rt, error='Please select valid date')
+
+            busstime = selectdate + " " + selecttime
+
+
+            selectclass = request.form.get('class')
+            entry = Booking(user=g.id, route=selectdata, date=busstime, bussClass=selectclass)
+            db.session.add(entry)
+            db.session.commit()
+
+            return redirect(url_for('current'))
+
         rt = []
         routes = Route.query.all()
-
         for route in routes:
             rt.append(route.route_path)
-
         return render_template('book.html', rt=rt)
 
     return redirect(url_for('login_post'))
 
-@app.route('/bookie', methods=['Post', 'Get'])
-def bookie():
-    selectdata= request.form.get('route')
-    print('hello')
-    return redirect(url_for('current'))
-
 
 @app.route('/current')
 def current():
+
     if g.user:
-        return render_template('current.html')
+        checkTime()
+        timelist=[]
+        routedata = Booking.query.filter_by(user=g.id)
+        ctime = datetime.now()
+        ct= datetime.timestamp(ctime)
+        for i in routedata:
+            bt = datetime.timestamp(i.date)
+            rt = bt-ct
+            timelist.append(rt)
+
+        return render_template('current.html', data=zip(routedata, timelist))
 
     return redirect(url_for('login_post'))
 
+def checkTime():
+    timelist = []
+    routedata = Booking.query.filter_by(user=g.id)
+    ctime = datetime.now()
+    ct = datetime.timestamp(ctime)
+    for i in routedata:
+        bt = datetime.timestamp(i.date)
+        rt = bt - ct
+        timelist.append(rt)
+
+    for data , rmt in zip(routedata, timelist):
+        if rmt <= 0:
+            entry = Invoice(user=data.user, date=data.date, fare=20, route=data.route, bussClass=data.bussClass)
+            db.session.add(entry)
+            Booking.query.filter_by(id=data.id).delete()
+            db.session.commit()
+
+
+
+@app.route('/cancel/<val>', methods=['GET','POST'])
+def cancel(val):
+
+    Booking.query.filter_by(id=val).delete()
+    db.session.commit()
+    return redirect(url_for('current'))
+
+@app.route('/Clear', methods=['GET', 'POST'])
+def Clear():
+    Booking.query.filter_by(id=g.id).delete()
+    db.session.commit()
+    return render_template('history.html')
 
 @app.route('/history')
 def history():
     if g.user:
-        return render_template('history.html')
+        data=Invoice.query.filter_by(user=g.id)
+        return render_template('history.html', data=data)
 
     return redirect(url_for('login_post'))
 
@@ -118,6 +184,7 @@ def login_post():
 
         if not user or user.password != password:
             return render_template('signup.html', error="Username or password incorrect")
+        session['userId']=user.id
         session['userName'] = request.form['username']
         return redirect(url_for('book'))
     return render_template('signup.html')
@@ -126,10 +193,13 @@ def login_post():
 
 @app.before_request
 def before_request():
+
+
   g.user = None
+  g.id = None
   if 'userName' in session:
       g.user = session['userName']
-
+      g.id = session['userId']
 
 if __name__ == '__main__':
     app.run()
