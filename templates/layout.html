@@ -9,7 +9,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Travel &mdash; 100% Free Fully Responsive HTML5 Template by FREEHTML5.co</title>
+	<title>{% block title %}{% endblock %} | Travel</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
 	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
@@ -85,7 +85,7 @@
 						<!-- START #fh5co-menu-wrap -->
 						<nav id="fh5co-menu-wrap" role="navigation">
 							<ul class="sf-menu" id="fh5co-primary-menu">
-								<li class="active"><a href="{{ url_for('book') }}">Book Ride</a></li>
+								<li><a href="{{ url_for('book') }}">Book Ride</a></li>
 								<li><a href="{{ url_for('current') }}">Current Rides</a></li>
 								<li><a href="{{ url_for('history') }}">History</a></li>
 								<li><a href="{{ url_for('logout') }}">Logout</a></li>
